@@ -12,6 +12,7 @@ import time
 st.title('ICS Module 2 Testing Simulator')
 st.markdown('Please choose your vehicle configuration below, and click the button to commence testing.')
 st.markdown('Each test takes 1.67 seconds to complete. 1000 tests will take 10 minutes.')
+st.markdown('Your displayed results will be the avarages of all of the prototype tests.')
 
 
 # setting the initial parameters
