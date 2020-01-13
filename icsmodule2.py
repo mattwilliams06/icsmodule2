@@ -48,6 +48,11 @@ n_runs = int(st.text_input('Enter the number of tests to perform: ', value='1', 
 
 start = st.button('Begin Testing')
 
+chassis = chassis.lower()
+engine = engine.lower()
+weapon = weapon.lower()
+radar = radar.lower()
+
 # Add a button to allow the user to commence the testing, which displays the progress bar and 
 # will display the results after
 
