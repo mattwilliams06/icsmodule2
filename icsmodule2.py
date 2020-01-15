@@ -11,7 +11,7 @@ import time
 
 st.title('ICS Module 2 Testing Simulator')
 st.markdown('Please choose your vehicle configuration below, and click the button to commence testing.')
-st.markdown('Each test takes 1.67 seconds to complete. 1000 tests will take 10 minutes.')
+st.markdown('Each test takes 0.6 seconds to complete. 1000 tests will take 10 minutes.')
 st.markdown('Your displayed results will be the avarages of all of the prototype tests.')
 
 
@@ -21,7 +21,7 @@ weight = 0
 speed = 20
 pk = 0.7
 surv = 0.0
-test_time = 1000/600 # seconds per test. 1000 tests takes 10 minutes
+test_time = 600/1000 # seconds per test. 1000 tests takes 10 minutes
 
 # Use streamlit to create drop-down menus to select the vehicle configuration
 chassis = st.selectbox(
