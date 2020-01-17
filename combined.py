@@ -3,15 +3,17 @@ import streamlit as st
 import numpy as np
 import time
 
-# This Python file uses the streamlit framework to create a web application for ICS Module 2.
+# This Python file uses the streamlit framework to create a web application for ICS Modules 2 and 3.
 # Hosting this code in a web application allows students to access a user interface without 
-# having access to to code itself. 
+# having access to to code itself. The web application is currently hosted on Heroku. 
 # Author: Matt Williams, matthew.j.williams@protonmail.com, 518-221-3267
 
+# Welcome heading, and create an input box for students to select module 2 or 3
 st.title('ICS Module Testing Simulator')
 st.header('Select a module to simulate:')
 module = st.text_input('Type 2 or 3 into the box and press enter.')
 
+### Module 2
 if module == '2':
   st.title('ICS Module 2 Testing Simulator')
   st.markdown('Please choose your vehicle configuration below, and click the button to commence testing.')
@@ -50,12 +52,15 @@ if module == '2':
   n_runs = int(st.text_input('Enter the number of tests to perform: ', value='1', key='runs'))
 
   start = st.button('Begin Testing')
-
+  
+  # Change everything to lowercase for simplicity
   chassis = chassis.lower()
   engine = engine.lower()
   weapon = weapon.lower()
   radar = radar.lower()
-
+  
+  # Commence this section of code if the start button has been pressed
+  # This adds and subtracts from parameters based on the selected configuration
   if start:
     if chassis == 'wheeled':
       weight += 1275
@@ -130,7 +135,7 @@ if module == '2':
       pk += .04
       angle -= 2
       surv += 0.03
-# Obtain the results from using normal distributions
+    # Obtain the results using normal distributions
     weight_std = np.random.uniform(0.1, 0.3)*weight
     weight_distro = np.random.normal(weight, weight_std, n_runs)
     weight_final = weight_distro.mean()
@@ -145,7 +150,10 @@ if module == '2':
     angle_final = angle_distro.mean()
     surv_std = np.random.uniform(0.1, 0.3)*angle
     surv_distro = np.random.normal(angle, angle_std, n_runs)
-    surv_final = angle_distro.mean()
+    surv_final = surv_distro.mean()
+    
+    # Show a progress bar and the current test number
+    # Delay the results based on the number of tests selected
     latest_iteration = st.empty()
     my_bar = st.progress(0)
     for i in range(n_runs+1):
@@ -156,18 +164,22 @@ if module == '2':
     st.markdown('Testing results: ')
     st.markdown(f'Weight: {weight_final:.2f} kgs  \nSpeed: {speed_final:.2f} km/hr  \nPk: {pk_final:.2f}\
         \nAngle: {angle_final:.2f} deg')
+### Module 3
 elif module == '3':
   st.title('ICS Module 3 Testing Simulator')
   st.markdown('Please choose your vehicle configuration below, and click the button to commence testing.')
   st.markdown('Each test takes 0.6 seconds to complete. 1000 tests will take 10 minutes.')
 
-  # creating the multi-level row indices per the Dragonfly Component Tradeoff Matrix
-  # active power data not currently included
+  # The following sections of code create the dataframes to store information
+  # Creating the multi-level row indices per the Dragonfly Component Tradeoff Matrix
+  # Active power data not currently included
   engine_index = pd.MultiIndex.from_tuples([('engine_size', 'weight'), ('engine_size', 'speed'), ('engine_size', 'cost')])
   frame_index = pd.MultiIndex.from_tuples([('frame', 'weight'), ('frame', 'survivability'), ('frame', 'cost')])
   armor_index = pd.MultiIndex.from_tuples([('armor', 'weight'), ('armor', 'survivability'), ('armor', 'cost')])
 
-  # creating the multi-level column indices per the Dragonfly Component Tradeoff Matrix
+  # Creating the multi-level column indices per the Dragonfly Component Tradeoff Matrix
+  # These commands are shortucts to creating the repetitive column labels. For example, each frame size has the 
+  # option for a small, medium, and large engine.
   wheeled_engine_columns = pd.MultiIndex.from_product([['wheeled_small_frame', 'wheeled_medium_frame', 'wheeled_large_frame'],
                             ['small', 'medium', 'large']])
   wheeled_frame_columns = pd.MultiIndex.from_product([['wheeled_small_frame', 'wheeled_medium_frame', 'wheeled_large_frame'],
@@ -189,7 +201,8 @@ elif module == '3':
   hover_armor_columns = pd.MultiIndex.from_product([['hover_small_frame', 'hover_medium_frame', 'hover_large_frame'],
                             ['none', 'steel', 'tungsten']])
 
-# data from the Dragonfly matrix, except for active power for the engines
+  # Data from the Dragonfly matrix, except for active power for the engines
+  # First row is weight, third row is cost. Second row is component-dependent (see Dragonfly matrix).
   wheeled_engine_data = [[695, 756, 895, 705, 756, 895, 715, 756, 895],
                       [30, 35, 40, 25, 30, 35, 20, 25, 30],
                       [278, 347.5, 417, 347.5, 417, 486.5, 417, 486.5, 556]]
@@ -240,7 +253,7 @@ elif module == '3':
                       [0, 1.1, 1.12, 1.15, 1.175, 1.2],
                       [0, 173.5, 191, 208.5, 226, 243.5]]
 
-  # creating the dataframes, three per variant
+  # creating the dataframes, three per variant (engine, frame, and armor)
   wheeled_engine_df = pd.DataFrame(data=wheeled_engine_data,
             index=engine_index,
             columns=wheeled_engine_columns)
@@ -348,6 +361,7 @@ elif module == '3':
 
   start = st.button('Begin Testing')
 
+  # Function for selecting the data based on chassis-related input
   def get_chassis_data(chassis, frame_size, engine_size, frame, armor):
     if chassis == 'wheeled':
       engine_df = wheeled_engine_df
@@ -374,6 +388,7 @@ elif module == '3':
 
     return weight, speed, surv, cost
 
+  # Function for selecting data related to the weapon configuration
   def accessory_data(rocket, minigun, laser_missile, grenade, targeting_comp):
     column_dict = {'none': 0, 'mk1': 1, 'mk2': 2, 'mk3': 3, 'mk4': 4, 'mk5': 5}
     rocket_weight, rocket_damage, rocket_cost = [rocket_data[col][column_dict[rocket]] for col in range(len(rocket_data))]
@@ -392,6 +407,8 @@ elif module == '3':
 
     return weight, damage, cost
 
+  # Call the functions and sum the results when the start button is pushed. 
+  # Delay the results and display the status bar.
   if start:
     chassis_weight, speed, surv, chassis_cost = get_chassis_data(chassis, frame_size, engine_size, frame, armor)
     acc_weight, damage, acc_cost = accessory_data(rocket, minigun, laser_guided_missile, grenade, targeting_computer)
