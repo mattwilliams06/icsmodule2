@@ -300,9 +300,9 @@ elif module == '3':
                    [0, 50, 55, 60, 65, 70],
                    [0, 103.5, 121, 138.5, 156, 173.5]]
 
-  targeting_comp_data = [[0, 41, 43, 45, 47, 49],
-                      [0, 1.1, 1.12, 1.15, 1.175, 1.2],
-                      [0, 173.5, 191, 208.5, 226, 243.5]]
+    targeting_comp_data = [[0, 41, 43, 45, 47, 49],
+                        [0, 1.1, 1.12, 1.15, 1.175, 1.2],
+                        [0, 173.5, 191, 208.5, 226, 243.5]]
 
     # creating the dataframes, three per variant (engine, frame, and armor)
     wheeled_engine_df = pd.DataFrame(data=wheeled_engine_data,
