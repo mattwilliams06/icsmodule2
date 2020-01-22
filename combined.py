@@ -17,8 +17,8 @@ module = st.text_input('Type 2 or 3 into the box and press enter.')
 if module == '2':
   st.title('ICS Module 2 Testing Simulator')
   st.markdown('Please choose your vehicle configuration below, and click the button to commence testing.')
-  st.markdown('Each test takes 0.6 seconds to complete. 1000 tests will take 10 minutes.')
-  st.markdown('Your displayed results will be the avarages of all of the prototype tests.')
+  st.markdown('Each test takes 10 minutes to complete.')
+  st.markdown('Your displayed results will be the averages of all of the prototype tests.')
 
   # setting the initial parameters
   angle = 0.0
@@ -26,7 +26,7 @@ if module == '2':
   speed = 20
   pk = 0.7
   surv = 0.0
-  test_time = 600/1000 # seconds per test. 1000 tests takes 10 minutes
+  test_time = 600 # 10 minutes in seconds. 600 seconds per test
 
   # Use streamlit to create drop-down menus to select the vehicle configuration
   chassis = st.selectbox(
@@ -71,7 +71,11 @@ if module == '2':
       pk += 0.01
       net_ready = 4.9
       MTBF = 173.7
-      MTTR = 
+      MTTR = 4.7
+      CPI = .92
+      SPI = .92
+      pd = 0.73
+      range = 18
     elif chassis == 'tracked':
       weight += 1350
       surv += 0.3
@@ -81,6 +85,11 @@ if module == '2':
       pk += 0.02
       net_ready = 4.8
       MTBF = 185.2
+      MTTR = 5.1
+      CPI = 1.12
+      SPI = 1.0
+      pd = 0.75
+      range = 12
     else: #hover
       weight += 1200
       surv += 0.
@@ -89,6 +98,11 @@ if module == '2':
       surv += 0.8
       net_ready = 4.4
       MTBF = 265.5
+      MTTR = 6.7
+      CPI = .88
+      SPI = 0.86
+      pd = 0.74
+      range = 12
 
     if engine == 'Mark1': # baseline engine
       speed += 0
@@ -101,18 +115,21 @@ if module == '2':
       angle += 1
       surv += 0.02
       pk += 0.01
+      range += 2
     else: # Mark 3
       speed += 20
       weight += 150
       angle += 1
       surv = 0.03
       pk += 0.02
+      range += 3
 
     if weapon == 'rocket':
       speed -= 3
       weight += 75
       pk += 0.05
       angle -= 2
+      range -= 1
     elif weapon == 'minigun':
       speed -= 2
       weight += 50
@@ -123,13 +140,13 @@ if module == '2':
       weight += 125
       pk += 0.08
       angle -= 3
+      range -= 2
 
     if radar == 'standard':
       speed -= 1
       weight += 50
       pk += .01
       angle -= 0
-
     elif radar == 'upgraded':
       speed -= 2
       weight += 60
@@ -155,22 +172,46 @@ if module == '2':
     angle_std = np.random.uniform(0.1, 0.3)*angle
     angle_distro = np.random.normal(angle, angle_std, n_runs)
     angle_final = angle_distro.mean()
-    surv_std = np.random.uniform(0.1, 0.3)*angle
-    surv_distro = np.random.normal(angle, angle_std, n_runs)
+    surv_std = np.random.uniform(0.1, 0.3)*surv
+    surv_distro = np.random.normal(surv, surv_std, n_runs)
     surv_final = surv_distro.mean()
+    range_std = np.random.uniform(0.1, 0.3)*range
+    range_distro = np.random.normal(range, range_std, n_runs)
+    range_final = range_distro.mean()
+    pd_std = np.random.uniform(0.1, 0.3)*pd
+    pd_distro = np.random.normal(pd, pd_std, n_runs)
+    pd_final = pd_distro.mean()
+    net_ready_std = np.random.uniform(0.1, 0.3)*net_ready
+    net_ready_distro = np.random.normal(net_ready, net_ready_std, n_runs)
+    net_ready_final = net_ready_distro.mean()
+    MTTR_std = np.random.uniform(0.1, 0.3)*MTTR
+    MTTR_distro = np.random.normal(MTTR, MTTR_std, n_runs)
+    MTTR_final = MTTR_distro.mean()
+    MTBF_std = np.random.uniform(0.1, 0.3)*MTBF
+    MTBF_distro = np.random.normal(MTBF, MTBF_std, n_runs)
+    MTBF_final = MTBF_distro.mean()
+    CPI_std = np.random.uniform(0.1, 0.3)*CPI
+    CPI_distro = np.random.normal(CPI, CPI_std, n_runs)
+    CPI_final = CPI_distro.mean()
+    SPI_std = np.random.uniform(0.1, 0.3)*surv
+    SPI_distro = np.random.normal(surv, surv_std, n_runs)
+    SPI_final = surv_distro.mean()
     
     # Show a progress bar and the current test number
     # Delay the results based on the number of tests selected
     latest_iteration = st.empty()
     my_bar = st.progress(0)
-    for i in range(n_runs+1):
-      percent_cpl = int(i / n_runs * 100)
-      latest_iteration.text('Test {}/{}'.format(i, n_runs))
+    total_time = test_time * n_runs # total time in seconds
+    for i in range(total_time + 1):
+      percent_cpl = int(i / total_time * 100)
+      latest_iteration.text('Test {}/{}'.format(i // 600, n_runs))
       my_bar.progress(percent_cpl)
-      time.sleep(test_time)
+      time.sleep(1)
     st.markdown('Testing results: ')
     st.markdown(f'Weight: {weight_final:.2f} kgs  \nSpeed: {speed_final:.2f} km/hr  \nPk: {pk_final:.2f}\
-        \nAngle: {angle_final:.2f} deg')
+        \nAngle: {angle_final:.2f} deg  \nNet Ready: {net_ready_final:.1f} sec  \nPd: {pd_final:.3f} \
+        \nSurvivability index: {surv_final:.3f}  \nMTTR: {MTTR_final:1.f} hours  \nMTBF: {MTBF_final:.1f} hours\
+        \nCPI: {CPI:.3f}, \SPI: {SPI:.3f}')
 ### Module 3
 elif module == '3':
   st.title('ICS Module 3 Testing Simulator')
