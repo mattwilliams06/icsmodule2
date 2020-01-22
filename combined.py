@@ -140,7 +140,7 @@ if module == '2':
       weight += 125
       pk += 0.08
       angle -= 3
-      range -= 2
+      vehicle_range -= 2
 
     if radar == 'standard':
       speed -= 1
@@ -175,8 +175,8 @@ if module == '2':
     surv_std = np.random.uniform(0.1, 0.3)*surv
     surv_distro = np.random.normal(surv, surv_std, n_runs)
     surv_final = surv_distro.mean()
-    vehicle_range_std = np.random.uniform(0.1, 0.3)*range
-    range_distro = np.random.normal(range, range_std, n_runs)
+    range_std = np.random.uniform(0.1, 0.3)*vehicle_range
+    range_distro = np.random.normal(vehicle_range, range_std, n_runs)
     range_final = range_distro.mean()
     pd_std = np.random.uniform(0.1, 0.3)*pd
     pd_distro = np.random.normal(pd, pd_std, n_runs)
