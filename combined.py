@@ -75,10 +75,10 @@ if module == '2':
       CPI = .92
       SPI = .92
       pd = 0.73
-      range = 18
+      Range = 18
     elif chassis == 'tracked':
       weight += 1350
-      surv += 0.3
+      surv += 0.88
       speed -= 5
       angle += 25
       surv += 0.9
@@ -89,7 +89,7 @@ if module == '2':
       CPI = 1.12
       SPI = 1.0
       pd = 0.75
-      range = 12
+      Range = 12
     else: #hover
       weight += 1200
       surv += 0.
@@ -102,7 +102,7 @@ if module == '2':
       CPI = .88
       SPI = 0.86
       pd = 0.74
-      range = 12
+      Range = 12
 
     if engine == 'Mark1': # baseline engine
       speed += 0
@@ -115,21 +115,21 @@ if module == '2':
       angle += 1
       surv += 0.02
       pk += 0.01
-      range += 2
+      Range += 2
     else: # Mark 3
       speed += 20
       weight += 150
       angle += 1
       surv = 0.03
       pk += 0.02
-      range += 3
+      Range += 3
 
     if weapon == 'rocket':
       speed -= 3
       weight += 75
       pk += 0.05
       angle -= 2
-      range -= 1
+      Range -= 1
     elif weapon == 'minigun':
       speed -= 2
       weight += 50
@@ -140,7 +140,7 @@ if module == '2':
       weight += 125
       pk += 0.08
       angle -= 3
-      range -= 2
+      Range -= 2
 
     if radar == 'standard':
       speed -= 1
@@ -161,41 +161,41 @@ if module == '2':
       surv += 0.03
     # Obtain the results using normal distributions
     weight_std = np.random.uniform(0.1, 0.3)*weight
-    weight_distro = np.random.normal(weight, weight_std, n_runs)
+    weight_distro = np.random.normal(weight, weight_std, n_runs*100)
     weight_final = weight_distro.mean()
     speed_std = np.random.uniform(0.1, 0.3)*speed
-    speed_distro = np.random.normal(speed, speed_std, n_runs)
+    speed_distro = np.random.normal(speed, speed_std, n_runs*100)
     speed_final = speed_distro.mean()
     pk_std = np.random.uniform(0.1, 0.3)*pk
     pk_distro = np.random.normal(pk, pk_std, n_runs)
     pk_final = pk_distro.mean()
     angle_std = np.random.uniform(0.1, 0.3)*angle
-    angle_distro = np.random.normal(angle, angle_std, n_runs)
+    angle_distro = np.random.normal(angle, angle_std, n_runs*100)
     angle_final = angle_distro.mean()
     surv_std = np.random.uniform(0.1, 0.3)*surv
-    surv_distro = np.random.normal(surv, surv_std, n_runs)
+    surv_distro = np.random.normal(surv, surv_std, n_runs*100)
     surv_final = surv_distro.mean()
-    range_std = np.random.uniform(0.1, 0.3)*range
-    range_distro = np.random.normal(range, range_std, n_runs)
+    range_std = np.random.uniform(0.1, 0.3)*Range
+    range_distro = np.random.normal(Range, range_std, n_runs*100)
     range_final = range_distro.mean()
     pd_std = np.random.uniform(0.1, 0.3)*pd
-    pd_distro = np.random.normal(pd, pd_std, n_runs)
+    pd_distro = np.random.normal(pd, pd_std, n_runs*100)
     pd_final = pd_distro.mean()
     net_ready_std = np.random.uniform(0.1, 0.3)*net_ready
-    net_ready_distro = np.random.normal(net_ready, net_ready_std, n_runs)
+    net_ready_distro = np.random.normal(net_ready, net_ready_std, n_runs*100)
     net_ready_final = net_ready_distro.mean()
     MTTR_std = np.random.uniform(0.1, 0.3)*MTTR
-    MTTR_distro = np.random.normal(MTTR, MTTR_std, n_runs)
+    MTTR_distro = np.random.normal(MTTR, MTTR_std, n_runs*100)
     MTTR_final = MTTR_distro.mean()
     MTBF_std = np.random.uniform(0.1, 0.3)*MTBF
-    MTBF_distro = np.random.normal(MTBF, MTBF_std, n_runs)
+    MTBF_distro = np.random.normal(MTBF, MTBF_std, n_runs*100)
     MTBF_final = MTBF_distro.mean()
     CPI_std = np.random.uniform(0.1, 0.3)*CPI
-    CPI_distro = np.random.normal(CPI, CPI_std, n_runs)
+    CPI_distro = np.random.normal(CPI, CPI_std, n_runs*100)
     CPI_final = CPI_distro.mean()
-    SPI_std = np.random.uniform(0.1, 0.3)*surv
-    SPI_distro = np.random.normal(surv, surv_std, n_runs)
-    SPI_final = surv_distro.mean()
+    SPI_std = np.random.uniform(0.1, 0.3)*SPI
+    SPI_distro = np.random.normal(SPI, SPI_std, n_runs*100)
+    SPI_final = SPI_distro.mean()
     
     # Show a progress bar and the current test number
     # Delay the results based on the number of tests selected
@@ -203,15 +203,15 @@ if module == '2':
     my_bar = st.progress(0)
     total_time = test_time * n_runs # total time in seconds
     for i in range(total_time + 1):
-      percent_cpl = int(i / total_time * 100)
-      latest_iteration.text('Test {}/{}'.format(i // 600, n_runs))
-      my_bar.progress(percent_cpl)
-      time.sleep(1)
+        percent_cpl = int(i / total_time * 100)
+        latest_iteration.text('Test {}/{} complete'.format(i // 600, n_runs))
+        my_bar.progress(percent_cpl)
+        time.sleep(.001)
     st.markdown('Testing results: ')
-    st.markdown(f'Weight: {weight_final:.2f} kgs  \nSpeed: {speed_final:.2f} km/hr  \nPk: {pk_final:.2f}\
+    st.markdown(f'Weight: {weight_final:.2f} kgs  \nSpeed: {speed_final:.2f} km/hr  \nPk: {pk_final:.2f} \
         \nAngle: {angle_final:.2f} deg  \nNet Ready: {net_ready_final:.1f} sec  \nPd: {pd_final:.3f} \
-        \nSurvivability index: {surv_final:.3f}  \nMTTR: {MTTR_final:1.f} hours  \nMTBF: {MTBF_final:.1f} hours\
-        \nCPI: {CPI:.3f}, \SPI: {SPI:.3f}')
+        \nSurvivability index: {surv_final:.3f}  \nMTTR: {MTTR_final:.1f} hours  \nMTBF: {MTBF_final:.1f} hours \
+        \nCPI: {CPI_final:.2f}  \nSPI: {SPI_final:.2f}')
 ### Module 3
 elif module == '3':
   st.title('ICS Module 3 Testing Simulator')
