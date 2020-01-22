@@ -75,7 +75,7 @@ if module == '2':
       CPI = .92
       SPI = .92
       pd = 0.73
-      range = 18
+      vehicle_range = 18
     elif chassis == 'tracked':
       weight += 1350
       surv += 0.3
@@ -89,7 +89,7 @@ if module == '2':
       CPI = 1.12
       SPI = 1.0
       pd = 0.75
-      range = 12
+      vehicle_range = 12
     else: #hover
       weight += 1200
       surv += 0.
@@ -102,7 +102,7 @@ if module == '2':
       CPI = .88
       SPI = 0.86
       pd = 0.74
-      range = 12
+      vehicle_range = 12
 
     if engine == 'Mark1': # baseline engine
       speed += 0
@@ -115,14 +115,14 @@ if module == '2':
       angle += 1
       surv += 0.02
       pk += 0.01
-      range += 2
+      vehicle_range += 2
     else: # Mark 3
       speed += 20
       weight += 150
       angle += 1
       surv = 0.03
       pk += 0.02
-      range += 3
+      vehicle_range += 3
 
     if weapon == 'rocket':
       speed -= 3
@@ -175,7 +175,7 @@ if module == '2':
     surv_std = np.random.uniform(0.1, 0.3)*surv
     surv_distro = np.random.normal(surv, surv_std, n_runs)
     surv_final = surv_distro.mean()
-    range_std = np.random.uniform(0.1, 0.3)*range
+    vehicle_range_std = np.random.uniform(0.1, 0.3)*range
     range_distro = np.random.normal(range, range_std, n_runs)
     range_final = range_distro.mean()
     pd_std = np.random.uniform(0.1, 0.3)*pd
