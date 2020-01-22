@@ -129,7 +129,7 @@ if module == '2':
       weight += 75
       pk += 0.05
       angle -= 2
-      range -= 1
+      vehicle_range -= 1
     elif weapon == 'minigun':
       speed -= 2
       weight += 50
