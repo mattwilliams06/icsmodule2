@@ -471,6 +471,7 @@ elif module == '3':
       # Delay the results based on the number of tests selected
       latest_iteration = st.empty()
       my_bar = st.progress(0)
+      test_time = 600
       total_time = test_time * n_runs # total time in seconds
       for i in range(total_time + 1):
         percent_cpl = int(i / total_time * 100)
