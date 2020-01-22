@@ -69,6 +69,9 @@ if module == '2':
       angle += 22
       surv += 0.85
       pk += 0.01
+      net_ready = 4.9
+      MTBF = 173.7
+      MTTR = 
     elif chassis == 'tracked':
       weight += 1350
       surv += 0.3
@@ -76,12 +79,16 @@ if module == '2':
       angle += 25
       surv += 0.9
       pk += 0.02
+      net_ready = 4.8
+      MTBF = 185.2
     else: #hover
       weight += 1200
       surv += 0.
       speed += 0
       angle += 19
       surv += 0.8
+      net_ready = 4.4
+      MTBF = 265.5
 
     if engine == 'Mark1': # baseline engine
       speed += 0
