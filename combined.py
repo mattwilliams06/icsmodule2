@@ -26,7 +26,7 @@ if module == '2':
   speed = 20
   pk = 0.7
   test_time = 600 # 10 minutes in seconds. 600 seconds per test
-
+  surv = 0.0
   # Use streamlit to create drop-down menus to select the vehicle configuration
   chassis = st.selectbox(
     'Select a chassis variant',
@@ -89,7 +89,7 @@ if module == '2':
       vehicle_range = 12
     else: #hover
       weight += 1200
-      surv += 0.
+      surv += 0.8
       speed += 0
       angle += 19
       surv += 0.8
