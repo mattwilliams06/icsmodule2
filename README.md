@@ -11,3 +11,5 @@ Each test is simulated as taking 10 minutes to complete. This is imposed by runn
 
 ## Web application deployment
 The code for the simulator uses the Streamlit framework to assist in deploying Python code to a browser-based application that the user can interact with and diplay progress bars. Using Streamlit eliminates the need to additionally write HTML and CSS files. All documentation and tutorials regarding Streamlit can be found on streamlit.io. Streamlit is integrated with the Python code, and allows Python commands to create all the text boxes, drop-down menus, progress bars, etc.
+
+Heroku deploys the application within a Python environment. The Python package dependencies are specified in the requirements.txt file. When re-building the application after any changes to the GitHub master branch, Heroku imports the specified versions of the libraries in the requirements file. This allows stable, predictable behavior for the application, even as libraries are updated by the user community.
