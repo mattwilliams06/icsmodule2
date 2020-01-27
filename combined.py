@@ -205,10 +205,10 @@ if module == '2':
       my_bar.progress(percent_cpl)
       time.sleep(1)
     st.markdown('Testing results: ')
-    st.markdown(f'Weight: {weight_final:.2f} kgs  \nSpeed: {speed_final:.2f} km/hr  \nPk: {pk_final:.2f}\
-        \nAngle: {angle_final:.2f} deg  \nNet Ready: {net_ready_final:.1f} sec  \nPd: {pd_final:.3f} \
-        \nSurvivability index: {surv_final:.3f}  \nMTTR: {MTTR_final:.1f} hours  \nMTBF: {MTBF_final:.1f} hours\
-        \nCPI: {CPI:.3f}  \nSPI: {SPI:.3f}')
+    st.markdown(f'Weight: {weight_final:.2f} kgs  \nSpeed: {speed_final:.2f} km/hr  \nRange: {range_final} km \
+        \nPk: {pk_final:.2f}  \nAngle: {angle_final:.2f} deg  \nNet Ready: {net_ready_final:.1f} sec \
+        \nPd: {pd_final:.3f}  \nSurvivability index: {surv_final:.3f}  \nMTTR: {MTTR_final:.1f} hours \
+        \nMTBF: {MTBF_final:.1f} hours  \nCPI: {CPI:.3f}  \nSPI: {SPI:.3f}')
 ### Module 3
 elif module == '3':
   correct_pword = 'cellardoor'
