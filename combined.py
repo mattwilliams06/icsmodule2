@@ -117,7 +117,7 @@ if module == '2':
       speed += 20
       weight += 150
       angle += 1
-      surv = 0.03
+      surv += 0.03
       pk += 0.02
       vehicle_range += 3
 
@@ -190,9 +190,9 @@ if module == '2':
     CPI_std = np.random.uniform(0.1, 0.3)*CPI
     CPI_distro = np.random.normal(CPI, CPI_std, n_runs)
     CPI_final = CPI_distro.mean()
-    SPI_std = np.random.uniform(0.1, 0.3)*surv
-    SPI_distro = np.random.normal(surv, surv_std, n_runs)
-    SPI_final = surv_distro.mean()
+    SPI_std = np.random.uniform(0.1, 0.3)*SPI
+    SPI_distro = np.random.normal(SPI, SPI_std, n_runs)
+    SPI_final = SPI_distro.mean()
     
     # Show a progress bar and the current test number
     # Delay the results based on the number of tests selected
