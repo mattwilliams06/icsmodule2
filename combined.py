@@ -17,7 +17,7 @@ module = st.text_input('Type 2 or 3 into the box and press enter.')
 if module == '2':
   st.title('ICS Module 2 Testing Simulator')
   st.markdown('Please choose your vehicle configuration below, and click the button to commence testing.')
-  st.markdown('Each test takes 10 minutes to complete.')
+  st.markdown('Each test takes 2 minutes to complete.')
   st.markdown('Your displayed results will be the averages of all of the prototype tests.')
 
   # setting the initial parameters
@@ -72,7 +72,7 @@ if module == '2':
       MTTR = 4.7
       CPI = .92
       SPI = .92
-      pd = 0.73
+      pd = 0.83
       vehicle_range = 18
     elif chassis == 'tracked':
       weight += 1350
@@ -85,7 +85,7 @@ if module == '2':
       MTTR = 5.1
       CPI = 1.12
       SPI = 1.0
-      pd = 0.75
+      pd = 0.85
       vehicle_range = 12
     else: #hover
       weight += 1200
@@ -98,7 +98,7 @@ if module == '2':
       MTTR = 6.7
       CPI = .88
       SPI = 0.86
-      pd = 0.74
+      pd = 0.84
       vehicle_range = 12
 
     if engine == 'Mark1': # baseline engine
@@ -216,7 +216,7 @@ elif module == '3':
   if pword == correct_pword:
     st.title('ICS Module 3 Testing Simulator')
     st.markdown('Please choose your vehicle configuration below, and click the button to commence testing.')
-    st.markdown('Each test takes 10 minutes to complete.')
+    st.markdown('Each test takes 5 minutes to complete.')
 
     # The following sections of code create the dataframes to store information
     # Creating the multi-level row indices per the Dragonfly Component Tradeoff Matrix
@@ -468,7 +468,7 @@ elif module == '3':
       # Delay the results based on the number of tests selected
       latest_iteration = st.empty()
       my_bar = st.progress(0)
-      test_time = 120
+      test_time = 300
       total_time = test_time * n_runs # total time in seconds
       for i in range(total_time + 1):
         percent_cpl = int(i / total_time * 100)
