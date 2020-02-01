@@ -2,6 +2,7 @@ import pandas as pd
 import streamlit as st
 import numpy as np
 import time
+from streamlit import caching
 
 # This Python file uses the streamlit framework to create a web application for ICS Modules 2 and 3.
 # Hosting this code in a web application allows students to access a user interface without 
@@ -15,6 +16,7 @@ module = st.text_input('Type 2 or 3 into the box and press enter.')
 
 ### Module 2
 if module == '2':
+  caching.clear_cache()
   st.title('ICS Module 2 Testing Simulator')
   st.markdown('Please choose your vehicle configuration below, and click the button to commence testing.')
   st.markdown('Each test takes 2 minutes to complete.')
@@ -211,6 +213,7 @@ if module == '2':
         \nMTBF: {MTBF_final:.1f} hours  \nCPI: {CPI:.3f}  \nSPI: {SPI:.3f}')
 ### Module 3
 elif module == '3':
+  caching.clear_cache()
   correct_pword = 'cellardoor'
   pword = st.text_input('Enter the password for Module 3: ')
   if pword == correct_pword:
@@ -405,7 +408,7 @@ elif module == '3':
     grenade = grenade.lower()
     targeting_computer = targeting_computer.lower()
 
-    n_runs = int(st.text_input('Enter the number of tests to perform: ', value=1, key='runs'))
+    # n_runs = int(st.text_input('Enter the number of tests to perform: ', value=1, key='runs'))
 
     start = st.button('Begin Testing')
 
@@ -469,6 +472,7 @@ elif module == '3':
       latest_iteration = st.empty()
       my_bar = st.progress(0)
       test_time = 300
+      n_runs = 1
       total_time = test_time * n_runs # total time in seconds
       for i in range(total_time + 1):
         percent_cpl = int(i / total_time * 100)
