@@ -25,7 +25,7 @@ if module == '2':
   weight = 0
   speed = 20
   pk = 0.7
-  test_time = 600 # 10 minutes in seconds. 600 seconds per test
+  test_time = 120 # amount of time per test in seconds
   surv = 0.0
   # Use streamlit to create drop-down menus to select the vehicle configuration
   chassis = st.selectbox(
@@ -201,7 +201,7 @@ if module == '2':
     total_time = test_time * n_runs # total time in seconds
     for i in range(total_time + 1):
       percent_cpl = int(i / total_time * 100)
-      latest_iteration.text('Test {}/{}'.format(i // 600, n_runs))
+      latest_iteration.text('Test {}/{}'.format(i // test_time, n_runs))
       my_bar.progress(percent_cpl)
       time.sleep(1)
     st.markdown('Testing results: ')
@@ -468,11 +468,11 @@ elif module == '3':
       # Delay the results based on the number of tests selected
       latest_iteration = st.empty()
       my_bar = st.progress(0)
-      test_time = 600
+      test_time = 120
       total_time = test_time * n_runs # total time in seconds
       for i in range(total_time + 1):
         percent_cpl = int(i / total_time * 100)
-        latest_iteration.text('Test {}/{}'.format(i // 600, n_runs))
+        latest_iteration.text('Test {}/{}'.format(i // test_time, n_runs))
         my_bar.progress(percent_cpl)
         time.sleep(1)
       st.markdown('Testing results: ')
