@@ -481,7 +481,7 @@ elif module == '3':
         time.sleep(1)
       st.markdown('Testing results: ')
       st.markdown(f'Weight: {weight:.2f} kgs  \nSpeed: {speed:.2f} km/hr  \nSurvivability index: {surv:.3f}\
-          \nDamage index: {damage:.2f}  \nCost: {cost:.2f} ($M)')
+          \nDamage index: {damage:.2f}  \nLife-Cyccle Cost: {cost:.2f} ($M)')
   else:
     st.write('Incorrect password')
         
