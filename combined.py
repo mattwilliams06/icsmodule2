@@ -375,7 +375,7 @@ elif module == '3':
 
     st.markdown('Please select the weapon configuration below.')
     st.markdown('MK1 variants provide the lowest performance, while MK5 provides the highest.')
-    st.markdown('The laser-guided missile requires a targeting computer to be installed in order to obtain higher lethanlity than a free rocket.')
+    st.markdown('The laser-guided missile requires a targeting computer to be installed in order to obtain higher lethality than a free rocket.')
 
     rocket = st.selectbox(
       'Rocket variant',
@@ -481,7 +481,7 @@ elif module == '3':
         time.sleep(1)
       st.markdown('Testing results: ')
       st.markdown(f'Weight: {weight:.2f} kgs  \nSpeed: {speed:.2f} km/hr  \nSurvivability index: {surv:.3f}\
-          \nDamage index: {damage:.2f}  \nLife-Cyccle Cost: {cost:.2f} ($M)')
+          \nDamage index: {damage:.2f}  \nOperations and Sustainment Cost: {cost:.2f} ($M)')
   else:
     st.write('Incorrect password')
         
